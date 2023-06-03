@@ -9,6 +9,7 @@ import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.sql.SparkSession;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +19,11 @@ import java.util.stream.IntStream;
 @Service
 public class PlaceClusteringService {
 
-    SparkConf sparkConf = new SparkConf().set("spark.ui.port", "3000");
-    SparkSession spark = SparkSession.builder().config(sparkConf).appName("clustering").master("local[*]").getOrCreate();
-    JavaSparkContext jsc = new JavaSparkContext(spark.sparkContext());
+    private final JavaSparkContext jsc;
+    @Autowired
+    public PlaceClusteringService(JavaSparkContext jsc) {
+        this.jsc = jsc;
+    }
 
     public Optional<List<Place>> DbscanCluster(List<Place> places) {
         //these values are the params of the dbscan clustering algo, they were found by iterating on a list of places, comparing the list of each param and returning the params that maximize the length of the result

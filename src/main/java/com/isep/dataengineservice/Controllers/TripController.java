@@ -33,6 +33,7 @@ public class TripController {
     public void visitPlace(@RequestParam @NotNull Integer userId, @RequestBody @NotNull Place place) throws SQLException {
         tripService.visitPlace(userId, place);
     }
+
     @GetMapping(value="/api/recommendDestination/{userId}")
     public List<Place> recommendDestination(@PathVariable("userId") int userId) throws SQLException  {
         List<Place> recommendedPlaces = recommendationService.RecommendPlaces(userId);

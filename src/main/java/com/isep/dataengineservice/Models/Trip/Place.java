@@ -11,8 +11,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-// private Integer tempsDeVisite;
-// private Integer visitBudget;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Place implements Serializable {
     private String name;
@@ -43,6 +42,14 @@ public class Place implements Serializable {
         private int id;
         private Geometry geometry;
         private Place properties;
+
+        public Feature(Place prop, Geometry geo)
+        {
+            this.geometry = geo;
+            this.properties = prop;
+        }
+        public Geometry getCoordinates() { return this.geometry;}
+        public Place getPlace() { return this.properties; }
     }
 
     @Data

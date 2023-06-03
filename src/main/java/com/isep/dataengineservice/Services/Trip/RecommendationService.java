@@ -20,6 +20,16 @@ import static org.apache.spark.sql.functions.col;
 
 @Service
 public class RecommendationService {
+    private final SparkSession spark;
+    private final UserService userService;
+    private final TripService tripService;
+
+    @Autowired
+    public RecommendationService(SparkSession spark, UserService userService, TripService tripService) {
+        this.spark = spark;
+        this.userService = userService;
+        this.tripService = tripService;
+    }
 
     /*
  WARNING: In case you get a stackOverFlow exception in Spark, reduce the value of the setMaxIter in the ALS parameters below.
@@ -32,12 +42,7 @@ public class RecommendationService {
     so I divided by 10,000 (the IDs are so far, that I'm almost certain they'll be no collisions). I ran the algorithm and then ran a function that
     gets the recommended places by ID. but now the IDs don't have their first character, and they are divided by 10,000. So to create a link between them, I linked them in a hashmap.
 */
-    SparkConf sparkConf = new SparkConf().set("spark.ui.port", "3000");
-    SparkSession spark = SparkSession.builder().config(sparkConf).appName("clustering").master("local[*]").getOrCreate();
-    @Autowired
-    UserService userService;
-    @Autowired
-    TripService tripService;
+
 
     private List<Long> parsePlaces(String places) {
         List<Long> placeList = new ArrayList<>();

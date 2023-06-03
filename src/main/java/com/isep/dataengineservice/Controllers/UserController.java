@@ -19,6 +19,12 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
+    @PostMapping(value="/api/images")
+    public void saveImage(@RequestBody @NotNull byte[] image) throws SQLException {
+        System.out.println("called");
+        userRepository.saveImage(image);
+    }
+
     @PostMapping(value="/api/registerUser")
     public ResponseEntity<User> registerUser(@RequestBody @NotNull User user) throws SQLException {
         Boolean userAlreadyExists = userService.usernameTaken(user.getUsername());

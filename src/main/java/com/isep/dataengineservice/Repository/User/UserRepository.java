@@ -19,6 +19,14 @@ public class UserRepository {
     @Autowired
     Connection connection;
 
+
+    public void saveImage(byte[] data) throws SQLException {
+        String sql = "INSERT INTO images (id, name, data) VALUES (1, 'test', ?)";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setBytes(1, data);
+        ps.executeUpdate();
+    }
+
     public User getUserById(int id) throws SQLException{
         String query = "SELECT * FROM users WHERE id = ?";
         PreparedStatement ps = connection.prepareStatement(query);
@@ -43,6 +51,7 @@ public class UserRepository {
         String query = "SELECT * FROM users WHERE username = ?";
         PreparedStatement ps = connection.prepareStatement(query);
         ps.setString(1, username);
+
         try {
             var result = ps.executeQuery();
             RowMapper<User> rowMapper = new BeanPropertyRowMapper<>(User.class);

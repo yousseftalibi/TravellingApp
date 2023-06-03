@@ -88,6 +88,18 @@ public class TripService {
                 .collect(Collectors.toList()));
     }
 
+    public Place.ApiResponse getApiResponse(Double lon, Double lat) {
+        String rapidApiKey = getValidApiKey();
+        RestTemplate restTemplate = new RestTemplate();
+        String uri = "https://opentripmap-places-v1.p.rapidapi.com/en/places/radius?radius=500&lon=" + lon + "&lat=" + lat;
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("X-RapidAPI-Key", rapidApiKey);
+        headers.add("X-RapidAPI-Host", "opentripmap-places-v1.p.rapidapi.com");
+        HttpEntity<String> requestEntity = new HttpEntity<>(headers);
+        ResponseEntity<Place.ApiResponse> response = restTemplate.exchange(uri, HttpMethod.GET, requestEntity, Place.ApiResponse.class);
+        Place.ApiResponse places = response.getBody();
+        return places;
+    }
     private List<Place> filterPlaces(List<Place> places) {
         allStreetKeywords.addAll(StreetKeywords.frenchStreets);
         allStreetKeywords.addAll(StreetKeywords.arabicStreets);
