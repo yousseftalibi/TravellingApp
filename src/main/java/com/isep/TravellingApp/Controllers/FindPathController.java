@@ -16,10 +16,10 @@ import java.util.Map;
 public class FindPathController {
 
     @PostMapping("/api/findPath")
-    public ResponseEntity<List<Place>> findPath(@RequestParam("budgetMax") int budgetMax, @RequestParam("minutes") int minutes, @RequestBody List<Place> places) throws CloneNotSupportedException {
+    public ResponseEntity<List<Place>> findPath( @RequestParam("minutes") int minutes, @RequestBody List<Place> places) throws CloneNotSupportedException {
         Place.ApiResponse apiResponse = convertToApiResponse(places);
         Graph graph = GraphHandler.graphFromApiResponse(apiResponse);
-        List<Place> result = findPathService.findPathFormatted(minutes, budgetMax, graph, apiResponse);
+        List<Place> result = findPathService.findPathFormatted(minutes, 0, graph, apiResponse);
         return ResponseEntity.ok(result);
     }
 

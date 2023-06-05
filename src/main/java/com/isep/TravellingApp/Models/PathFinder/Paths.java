@@ -70,23 +70,14 @@ public class Paths implements Cloneable {
 
 	public boolean hasToContinue()
 	{
-		boolean timeCond = true;
-		boolean budgetCond = true;
-
-		if(this.timeToGetCloseTo != 0)
-		{	timeCond = this.deltaTimeCond();	}
-
-		if(this.budgetToGetCloseTo != 0)
-		{	budgetCond = this.deltaBudgetCond(); }
-
-		return !(timeCond && budgetCond);
+		return !(this.deltaTimeCond());
 	}
 
 	public boolean deltaTimeCond()
 	{	return Math.abs(this.timeToGetCloseTo - this.time) < 0.005;	}
 
-	public boolean deltaBudgetCond()
-	{	return this.budgetToGetCloseTo - this.budget >= 0;		}
+	public boolean deltaBudgetCond(int nextBudget)
+	{	return this.budgetToGetCloseTo - this.budget - nextBudget>= 0;		}
 
 	public boolean isBetter(Paths bestPath)
 	{	if(this.path == bestPath.path)
@@ -99,7 +90,7 @@ public class Paths implements Cloneable {
 		{	timeCond = this.deltaTimeCond();	}
 
 		if(this.budgetToGetCloseTo != 0)
-		{	budgetCond = this.deltaBudgetCond(); }
+		{	budgetCond = this.deltaBudgetCond(0); }
 
 		return timeCond && budgetCond;
 	}

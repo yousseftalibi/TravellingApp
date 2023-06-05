@@ -1,7 +1,7 @@
 FROM openjdk:8-jdk-alpine
 WORKDIR /app
 
-COPY target/DataEngineService-0.0.1-SNAPSHOT.jar /app/DataEngineService.jar
+COPY target/TravellingApp-0.0.1-SNAPSHOT.jar /app/TravellingApp.jar
 
 COPY kafka.properties /app/kafka.properties
 
@@ -11,4 +11,4 @@ ENV DB_URL jdbc:postgresql://dpg-cglesuu4dad69r7upa9g-a.frankfurt-postgres.rende
 ENV DB_USER admin
 ENV DB_PASS RqrWKnc3gCJkTOnhO4PAk9Rt6BqQjdXV
 
-CMD ["java", "-jar", "/app/DataEngineService.jar"]
+CMD ["java", "-jar", "/app/TravellingApp.jar"]

@@ -1,7 +1,7 @@
 version: '3'
 services:
   data-engine-service:
-    build: .
+    image: 23051999/travellingapp
     ports:
       - "8083:8083"
     links:
