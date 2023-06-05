@@ -9,13 +9,13 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.isep</groupId>
-    <artifactId>DataEngineService</artifactId>
+    <artifactId>TravellingApp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>DataEngineService</name>
     <description>DataEngineService</description>
     <properties>
         <java.version>1.8</java.version>
-            <start-class>com.isep.dataengineservice.DataEngineServiceApplication</start-class>
+            <start-class>com.isep.TravellingApp.DataEngineServiceApplication</start-class>
     </properties>
     <dependencies>
 
@@ -93,6 +93,11 @@
             <artifactId>postgresql</artifactId>
             <version>42.2.23</version>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
         <!-- database end -->
 
     </dependencies>
@@ -104,7 +109,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
 
-                    <mainClass>com.isep.dataengineservice.DataEngineServiceApplication</mainClass>
+                    <mainClass>com.isep.TravellingApp.DataEngineServiceApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>
